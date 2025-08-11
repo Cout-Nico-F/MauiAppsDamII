@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    MainPage.xaml representa la vista principal de la aplicación.
+    Aquí se utiliza el patrón MVVM para separar la lógica de presentación.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiApp2MVVM.ViewModels"
+             x:Class="MauiApp2MVVM.MainPage">
+
+    <!--
+        Se establece el BindingContext de la página al MainViewModel.
+        Esto permite que los controles accedan a las propiedades y comandos del ViewModel.
+    -->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+
+            <Label
+                Text="Hello, World!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Welcome to &#10;.NET Multi-platform App UI"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+
+            <!-- Ejemplo: mostrar el mensaje del ViewModel -->
+            <Label
+                Text="{Binding Message}"
+                FontSize="18"
+                HorizontalOptions="Center"
+                TextColor="DarkGreen" />
+            <!-- Botón para cambiar el mensaje usando el comando ChangeMessageCommand -->
+            <Button
+                Text="Cambiar mensaje"
+                Command="{Binding ChangeMessageCommand}"
+                HorizontalOptions="Fill" />
+
+            <!--
+                El botón está enlazado al comando IncrementCommand del ViewModel.
+                Al hacer click, se ejecuta la acción definida en el ViewModel.
+            -->
+            <Button
+                Text="Click me"
+                Command="{Binding IncrementCommand}"
+                HorizontalOptions="Fill" />
+            <!--
+                El label muestra el valor actual del contador, enlazado a la propiedad Count del ViewModel.
+                Se actualiza automáticamente cuando cambia el valor.
+            -->
+            <Label
+                Text="{Binding Count}"
+                FontSize="24"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

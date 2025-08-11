@@ -1,0 +1,11 @@
+// Este modelo representa los datos de la aplicación.
+// En este caso, contiene una propiedad Count para el contador y una propiedad Message para mostrar un texto.
+namespace MauiApp2MVVM.Models
+{
+    public class CounterModel
+    {
+        public int Count { get; set; }
+        // Ejemplo: propiedad adicional para mostrar un mensaje en la vista.
+        public string Message { get; set; } = "¡Bienvenido a MVVM!";
+    }
+}

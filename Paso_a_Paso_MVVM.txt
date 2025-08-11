@@ -1,0 +1,75 @@
+# Guía paso a paso: MVVM en .NET MAUI
+
+## ¿Qué es MVVM?
+MVVM (Model-View-ViewModel) es un patrón de arquitectura que separa la lógica de negocio (Model), la interfaz de usuario (View) y la lógica de presentación (ViewModel). Esto facilita el mantenimiento, escalabilidad y pruebas de la aplicación.
+
+---
+
+## Paso a paso realizado en el proyecto
+
+### 1. Crear el Modelo (Model)
+- Archivo: Models/CounterModel.cs
+- El modelo representa los datos. En este caso, una clase simple con una propiedad Count.
+- Comentario en el código: Explica que el modelo es solo para datos y no contiene lógica de negocio.
+// Este modelo representa los datos de la aplicación.
+// En este caso, solo contiene una propiedad Count para el contador.
+public class CounterModel {
+    public int Count { get; set; }
+}
+### 2. Crear el ViewModel
+- Archivo: ViewModels/MainViewModel.cs
+- El ViewModel conecta la vista con el modelo y expone propiedades y comandos para la interfaz.
+- Implementa INotifyPropertyChanged para notificar cambios a la vista.
+- Expone un comando (IncrementCommand) para incrementar el contador.
+- Comentarios en el código: Explican el propósito del ViewModel, el uso de binding, comandos y eventos.
+
+#### Explicación de conceptos:
+- **INotifyPropertyChanged**: Permite que la vista se actualice automáticamente cuando cambian las propiedades del ViewModel.
+- **Command**: Permite asociar acciones (como el click de un botón) a métodos del ViewModel, evitando lógica en la vista.
+
+### 3. Modificar la Vista (View)
+- Archivo: MainPage.xaml
+- Se enlaza el ViewModel usando BindingContext.
+- Se usan bindings para mostrar el valor del contador y ejecutar el comando al presionar el botón.
+- Comentarios en el código: Explican el uso de BindingContext y el propósito de los bindings en los controles.
+<!-- El botón está enlazado al comando IncrementCommand del ViewModel. -->
+<Button Text="Click me" Command="{Binding IncrementCommand}" />
+<!-- El label muestra el valor actual del contador, enlazado a la propiedad Count del ViewModel. -->
+<Label Text="{Binding Count}" />
+### 4. Limpiar la lógica de la vista
+- Archivo: MainPage.xaml.cs
+- Se elimina la lógica del contador, ya que ahora está en el ViewModel.
+- Comentario en el código: Explica que el code-behind solo inicializa la vista y no contiene lógica de negocio.
+
+---
+
+## Explicaciones adicionales
+
+### Comandos
+- Los comandos permiten separar la lógica de interacción de la interfaz. En MAUI, se usa la clase Command para asociar acciones a controles como botones.
+- En el ViewModel, Command encapsula la acción que se ejecuta desde la vista.
+
+### Eventos
+- Los eventos como PropertyChanged permiten que la vista se actualice automáticamente cuando cambian los datos en el ViewModel.
+- El método OnPropertyChanged dispara el evento para actualizar la UI.
+
+### Clases utilizadas
+- **ContentPage**: Página principal de la interfaz.
+- **Command**: Encapsula una acción que puede ejecutarse desde la vista.
+- **INotifyPropertyChanged**: Interfaz para notificar cambios en propiedades.
+
+### Temas importantes
+- **Binding**: Es la técnica que conecta la vista con el ViewModel. Permite que los datos fluyan automáticamente entre ambos.
+- **Separación de responsabilidades**: MVVM ayuda a mantener el código organizado y fácil de mantener.
+- **Escalabilidad**: Al separar la lógica, es más fácil agregar nuevas funcionalidades y realizar pruebas.
+- **Code-behind**: En MVVM, el code-behind solo debe contener inicialización de la vista, nunca lógica de negocio.
+
+---
+
+## Recomendaciones para alumnos
+- Practiquen creando modelos, viewmodels y vistas para entender cómo se comunican.
+- Usen binding y comandos para evitar lógica en la vista.
+- Exploren cómo se actualiza la interfaz automáticamente al cambiar datos en el ViewModel.
+- Lean los comentarios en el código para comprender el propósito de cada sección.
+
+¡Con MVVM, tu código es más limpio y profesional!

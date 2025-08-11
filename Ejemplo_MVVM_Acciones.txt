@@ -1,0 +1,51 @@
+# Ejemplo práctico MVVM en .NET MAUI: Nuevas funcionalidades
+
+Este archivo explica los pasos y acciones realizados para agregar ejemplos básicos al proyecto usando el patrón MVVM.
+
+---
+
+## Objetivo
+Mostrar cómo agregar nuevas propiedades y comandos al modelo y ViewModel, y cómo reflejarlos en la vista usando binding.
+
+---
+
+## Acciones realizadas
+
+### 1. Agregar una propiedad al modelo
+- Se añadió la propiedad `Message` a la clase `CounterModel`.
+- Esta propiedad permite mostrar un texto personalizado en la interfaz.
+
+### 2. Exponer la propiedad en el ViewModel
+- Se creó la propiedad `Message` en `MainViewModel`, enlazada al modelo.
+- Se implementó el método `OnPropertyChanged` para notificar cambios a la vista.
+
+### 3. Crear un nuevo comando en el ViewModel
+- Se agregó el comando `ChangeMessageCommand` en `MainViewModel`.
+- Este comando permite cambiar el valor de `Message` desde la vista.
+
+### 4. Modificar la vista para mostrar y cambiar el mensaje
+- Se añadió un `Label` en `MainPage.xaml` para mostrar el mensaje usando `{Binding Message}`.
+- Se agregó un botón que ejecuta el comando `ChangeMessageCommand` para cambiar el mensaje.
+
+---
+
+## Explicación de los pasos
+
+- **Modelo**: El modelo debe contener solo datos. Agregar propiedades permite expandir la funcionalidad de la app.
+- **ViewModel**: El ViewModel expone propiedades y comandos para que la vista los consuma. Los comandos encapsulan acciones que pueden ejecutarse desde la UI.
+- **Vista**: Usar binding permite que los controles reflejen automáticamente los cambios en el ViewModel. Los botones pueden ejecutar comandos para modificar datos.
+
+---
+
+## Resultado
+
+- El usuario puede ver un mensaje en la interfaz y cambiarlo con un botón, todo gestionado desde el ViewModel siguiendo el patrón MVVM.
+- Este ejemplo muestra cómo escalar la aplicación agregando nuevas funcionalidades de forma ordenada y mantenible.
+
+---
+
+## Recomendación
+
+- Practica agregando más propiedades y comandos para entender cómo se comunican el modelo, el ViewModel y la vista.
+- Observa cómo los cambios en el ViewModel se reflejan automáticamente en la UI gracias al binding.
+
