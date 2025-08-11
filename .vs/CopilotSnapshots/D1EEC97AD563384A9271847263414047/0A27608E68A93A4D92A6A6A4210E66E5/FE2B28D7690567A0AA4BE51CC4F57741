@@ -1,0 +1,9 @@
+﻿// Este modelo representa los datos de la aplicación.
+// En este caso, solo contiene una propiedad Count para el contador.
+namespace MauiApp2MVVM.Models
+{
+    public class CounterModel
+    {
+        public int Count { get; set; }
+    }
+}
