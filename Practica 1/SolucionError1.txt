@@ -1,0 +1,8 @@
+
+LOG DEL ERROR:
+Git failed with a fatal error.
+error: open(".vs/DesarrolloMovilesDos/FileContentIndex/d47dbd4a-e571-434c-9d8f-901c688ee707.vsidx"): Permission denied
+fatal: Unable to process path .vs/DesarrolloMovilesDos/FileContentIndex/d47dbd4a-e571-434c-9d8f-901c688ee707.vsidx 
+
+RAZON: el archivo .gitignore no esta bien ubicado en el proyecto ó no existe. Por lo que .vs no se ignora y se intenta subir a git. 
+SOLUCION: Para solucionarlo, se debe crear un archivo .gitignore para visual studio 22 en la raíz del proyecto.

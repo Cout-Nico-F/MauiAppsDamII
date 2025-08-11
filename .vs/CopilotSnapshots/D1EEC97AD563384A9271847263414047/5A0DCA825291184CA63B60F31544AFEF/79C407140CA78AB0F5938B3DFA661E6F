@@ -1,0 +1,36 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using MauiApp2MVVM.Models;
+
+namespace MauiApp2MVVM.ViewModels
+{
+    public class MainViewModel : INotifyPropertyChanged
+    {
+        private CounterModel _counter = new CounterModel();
+        public int Count
+        {
+            get => _counter.Count;
+            set
+            {
+                if (_counter.Count != value)
+                {
+                    _counter.Count = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Command IncrementCommand { get; }
+
+        public MainViewModel()
+        {
+            IncrementCommand = new Command(() => Count++);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Archivo AppShell.xaml: Define la estructura de navegación principal de la app MAUI -->
+<!--
+Componentes principales dentro de <Shell>:
+
+- x:Class: Indica el nombre completo de la clase C# que representa este archivo XAML. Permite la conexión entre la interfaz definida en XAML y la lógica en C#.
+  Ejemplo: x:Class="MauiFirstApp.AppShell" enlaza este XAML con AppShell.xaml.cs.
+
+- xmlns: Define el espacio de nombres XML principal para los controles de MAUI. Es obligatorio para que el parser reconozca los elementos MAUI.
+  Ejemplo: xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+
+- xmlns:x: Espacio de nombres para las extensiones XAML, como x:Class, x:Name, x:Key, etc. Permite usar funcionalidades avanzadas de XAML.
+  Ejemplo: xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
+- xmlns:local: Permite referenciar clases, páginas y recursos definidos en el propio proyecto. Es útil para usar páginas o controles personalizados.
+  Ejemplo: xmlns:local="clr-namespace:MauiFirstApp"
+
+- Title: Propiedad que define el título de la aplicación o del contenedor Shell. Puede mostrarse en la barra superior de la app.
+  Ejemplo: Title="MauiFirstApp"
+-->
+<Shell
+    x:Class="MauiFirstApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiFirstApp"
+    Title="MauiFirstApp">
+
+    <!-- ShellContent: Representa una página dentro de la estructura de navegación -->
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>
+
+<!--
+Explicación detallada de cada elemento:
+
+1. <?xml version="1.0" encoding="UTF-8" ?>
+   Indica que el archivo es XML y define la codificación de caracteres.
+
+2. <Shell>
+   Es el contenedor principal de navegación en una app MAUI. Permite definir la estructura de páginas y rutas de la aplicación.
+   - x:Class: Especifica la clase parcial en C# que representa este archivo XAML.
+   - xmlns: Espacios de nombres necesarios para que el archivo XAML reconozca los elementos de MAUI y XAML.
+   - Title: Define el título de la aplicación que puede mostrarse en la barra superior.
+
+3. <ShellContent>
+   Representa una página individual dentro del Shell. Puedes tener varios ShellContent para diferentes páginas.
+   - Title: Es el nombre que se muestra en la barra de navegación o pestaña.
+   - ContentTemplate: Indica qué página se va a mostrar, en este caso MainPage, usando una plantilla de datos.
+   - Route: Define una ruta única para la navegación interna, útil para navegar entre páginas usando rutas.
+
+En resumen, AppShell.xaml define cómo se navega entre páginas en tu app MAUI y qué páginas están disponibles desde el inicio.
+-->

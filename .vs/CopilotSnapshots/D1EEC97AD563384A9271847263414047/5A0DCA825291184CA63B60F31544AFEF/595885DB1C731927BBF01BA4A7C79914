@@ -1,0 +1,7 @@
+﻿namespace MauiApp2MVVM.Models
+{
+    public class CounterModel
+    {
+        public int Count { get; set; }
+    }
+}

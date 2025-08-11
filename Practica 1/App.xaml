@@ -1,0 +1,77 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<!-- Archivo App.xaml: Define la configuración global y recursos compartidos de la app MAUI -->
+<!--
+Componentes principales dentro de <Application>:
+
+- x:Class: Indica el nombre completo de la clase C# que representa este archivo XAML. Permite la conexión entre la interfaz definida en XAML y la lógica en C#.
+  Ejemplo: x:Class="MauiFirstApp.App" enlaza este XAML con App.xaml.cs.
+
+- xmlns: Define el espacio de nombres XML principal para los controles de MAUI. Es obligatorio para que el parser reconozca los elementos MAUI.
+  Ejemplo: xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+
+- xmlns:x: Espacio de nombres para las extensiones XAML, como x:Class, x:Name, x:Key, etc. Permite usar funcionalidades avanzadas de XAML.
+  Ejemplo: xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
+- xmlns:local: Permite referenciar clases, páginas y recursos definidos en el propio proyecto. Es útil para usar páginas o controles personalizados.
+  Ejemplo: xmlns:local="clr-namespace:MauiFirstApp"
+
+<Application.Resources>: Sección donde se definen recursos compartidos para toda la aplicación, como estilos, colores, plantillas, etc.
+
+<ResourceDictionary>: Permite agrupar y organizar recursos reutilizables.
+
+<ResourceDictionary.MergedDictionaries>: Permite combinar varios diccionarios de recursos externos, facilitando la organización y reutilización de estilos y colores.
+  - Source: Indica la ruta de los archivos XAML que contienen los recursos (por ejemplo, colores y estilos).
+
+Explicación detallada de cada elemento:
+
+1. <?xml version = "1.0" encoding = "UTF-8" ?>
+   Indica que el archivo es XML y define la codificación de caracteres.
+
+2. <Application>
+   Es el contenedor principal de la aplicación. Aquí se definen recursos globales y configuración general.
+   - xmlns: Espacios de nombres necesarios para reconocer elementos de MAUI y XAML.
+   - x:Class: Especifica la clase parcial en C# que representa este archivo XAML.
+
+3. <Application.Resources>
+   Sección donde se definen recursos compartidos para toda la aplicación, como estilos, colores, plantillas, etc.
+
+4. <ResourceDictionary>
+   Permite agrupar y organizar recursos reutilizables.
+
+5. <ResourceDictionary.MergedDictionaries>
+   Permite combinar varios diccionarios de recursos externos, facilitando la organización y reutilización de estilos y colores.
+   - Source: Indica la ruta de los archivos XAML que contienen los recursos (por ejemplo, colores y estilos).
+
+En resumen, App.xaml centraliza la configuración y los recursos que estarán disponibles en toda la app MAUI.
+
+Explicación de los posibles errores de compilación:
+
+1. error MAUIG1001: "Name cannot begin with the '<' character, hexadecimal value 0x3C. Line 5, position 59."
+   Este error ocurre porque en el archivo AppShell.xaml se han colocado comentarios XML dentro de las propiedades de los elementos, por ejemplo:
+   xmlns = "http://schemas.microsoft.com/dotnet/2021/maui" (Espacio de nombres principal de MAUI)
+   En XAML, los comentarios no pueden estar dentro de las etiquetas o propiedades, solo pueden estar entre elementos. Esto hace que el parser de XAML falle.
+
+   Solución: Mueve los comentarios fuera de las líneas de propiedades y colócalos entre los elementos, nunca dentro de una etiqueta o propiedad.
+
+2. error CS0103: "The name 'InitializeComponent' does not exist in the current context"
+   Este error ocurre porque el archivo AppShell.xaml no se está compilando correctamente debido al error anterior, por lo que el archivo generado para InitializeComponent no existe. Esto hace que el constructor de AppShell.xaml.cs no pueda encontrar el método.
+
+   Solución: Corrige el error de XAML para que el archivo se compile correctamente y se genere el método InitializeComponent.
+
+En resumen, los errores se deben a la ubicación incorrecta de los comentarios en el XAML. Corrigiendo esto, la compilación debería funcionar correctamente.
+-->
+
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiFirstApp"
+             x:Class="MauiFirstApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+    

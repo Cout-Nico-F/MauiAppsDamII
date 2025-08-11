@@ -1,0 +1,10 @@
+﻿namespace MauiApp2MVVM
+{
+    public partial class MainPage : ContentPage
+    {
+        public MainPage()
+        {
+            InitializeComponent();
+        }
+    }
+}
