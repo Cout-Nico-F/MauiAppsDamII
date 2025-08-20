@@ -22,8 +22,27 @@
                     SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
       <CollectionView.ItemTemplate>
         <DataTemplate>
-          <Frame Padding="10" Margin="0,4" HasShadow="False" BorderColor="#DDD">
+          <Frame Padding="10" Margin="0,4" HasShadow="False" BorderColor="#DDD" x:Name="TaskFrame">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="CommonStates">
+                <VisualState Name="Normal">
+                  <VisualState.Setters>
+                    <Setter TargetName="TaskFrame" Property="BackgroundColor" Value="White" />
+                    <Setter TargetName="TaskFrame" Property="BorderColor" Value="#DDD" />
+                  </VisualState.Setters>
+                </VisualState>
+                <VisualState Name="Selected">
+                  <VisualState.Setters>
+                    <Setter TargetName="TaskFrame" Property="BackgroundColor" Value="#D0E1F9" />
+                    <Setter TargetName="TaskFrame" Property="BorderColor" Value="#A0C1E8" />
+                  </VisualState.Setters>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
             <Label Text="{Binding .}" />
+            <!-- Pista: el Binding . esta haciendo el bind hacia un tipo de dato simples como string ó int -->
+            <!-- Pista2: el Binding Title no funciona porque no hay declarado un modelo que tenga esta propiedad string Title -->
+            <!-- PistaFinal: Binding Title no funciona porque no tenemos ningun modelo en el proyecto. ni siquiera la carpeta models del mvvm. Esto solo sirve para situaciones muy simples y no es recomendado para aplicaciones medianas.-->
           </Frame>
         </DataTemplate>
       </CollectionView.ItemTemplate>
