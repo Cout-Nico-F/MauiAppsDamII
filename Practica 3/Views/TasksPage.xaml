@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Practica3MVVM.ViewModels"
+             x:Class="Practica3MVVM.Views.TasksPage"
+             Title="Tareas">
+
+  <ContentPage.BindingContext>
+    <vm:TasksViewModel />
+  </ContentPage.BindingContext>
+
+  <VerticalStackLayout Padding="20" Spacing="12">
+
+    <Label Text="Lista de tareas" FontAttributes="Bold" FontSize="20" />
+
+    <HorizontalStackLayout Spacing="8">
+      <Entry Text="{Binding NewTask, Mode=TwoWay}" Placeholder="Nueva tarea" HorizontalOptions="FillAndExpand" />
+      <Button Text="Agregar" Command="{Binding AddTaskCommand}" />
+    </HorizontalStackLayout>
+
+    <CollectionView ItemsSource="{Binding Tasks}" SelectionMode="Single"
+                    SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+      <CollectionView.ItemTemplate>
+        <DataTemplate>
+          <Frame Padding="10" Margin="0,4" HasShadow="False" BorderColor="#DDD">
+            <Label Text="{Binding .}" />
+          </Frame>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+
+    <HorizontalStackLayout Spacing="8">
+      <Button Text="Eliminar seleccionada" Command="{Binding RemoveTaskCommand}" />
+      <Button Text="Vaciar" Command="{Binding ClearTasksCommand}" />
+    </HorizontalStackLayout>
+
+  </VerticalStackLayout>
+</ContentPage>
