@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Vista principal para la demo de HTTP + MVVM.
+    En esta página solo hay XAML (definición de UI) y bindings a propiedades/comandos
+    del ViewModel. No hay lógica de negocio aquí, solo presentación.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:HTTPmaui.ViewModels"
+             x:Class="HTTPmaui.MainPage">
+
+    <!--
+        Se podría establecer el BindingContext en XAML con un vm:MainViewModel,
+        pero en esta demo lo haremos desde el code-behind resolviéndolo del contenedor DI.
+    -->
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- Encabezado -->
+            <Label Text="Demo HTTP + MVVM" Style="{StaticResource Headline}" />
+            <Label Text="Consumir API REST con HttpClient, try/catch y cancelación" Style="{StaticResource SubHeadline}" />
+
+            <!-- Estado de carga visual -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <!-- Entrada para seleccionar un PostId -->
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="Post Id:" VerticalOptions="Center"/>
+                <!-- Entry enlazado a PostId (int). En MAUI, Entry.Text es string; el binding manejará la conversión básica. -->
+                <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding PostId}" />
+                <Button Text="Cargar por Id" Command="{Binding LoadPostByIdCommand}" />
+            </HorizontalStackLayout>
+
+            <!-- Botón para cargar todos los posts -->
+            <Button Text="Cargar todos" Command="{Binding LoadPostsCommand}" />
+
+            <!-- Botón para cancelar la operación en curso -->
+            <Button Text="Cancelar" Command="{Binding CancelCommand}" />
+
+            <!-- Mensaje de error si algo ocurre (por ejemplo, HttpRequestException) -->
+            <Label TextColor="Red" Text="{Binding ErrorMessage}" />
+
+            <!-- Lista de resultados usando CollectionView -->
+            <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView.Header>
+                    <Label Text="Resultados" FontAttributes="Bold" />
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Cada elemento es un Post. Mostramos Título y Body. -->
+                        <Frame Padding="10" Margin="0,6" HasShadow="True">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Label Text="{Binding Body}" LineBreakMode="WordWrap" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

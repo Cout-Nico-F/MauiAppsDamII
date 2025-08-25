@@ -33,6 +33,10 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# Extra safety for recursive ignores (MAUI multi-proj repos)
+**/[Bb]in/**
+**/[Oo]bj/**
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -223,6 +227,14 @@ _pkginfo.txt
 *.appxbundle
 *.appxupload
 
+# MAUI mobile packages (Android/iOS/Windows Store)
+*.aab
+*.apk
+*.ipa
+*.msix
+*.msixbundle
+*.msixupload
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
@@ -361,3 +373,16 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# macOS / iOS dev artifacts
+*.dSYM
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Android Gradle cache
+**/.gradle/
+
+# OS-specific clutter
+.DS_Store
+Thumbs.db

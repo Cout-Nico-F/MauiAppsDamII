@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Practica 4 SIN DI (Dependency Injection).
+    Objetivo: consumir API REST con HttpClient, try/catch y cancelación usando MVVM,
+    además: ejemplos de POST, PUT y DELETE.
+    Mejora de UX: separar los Id para cada operación y explicar que jsonplaceholder no persiste.
+    Importante: estos comentarios están entre elementos (no dentro de atributos) para no romper el parser XAML.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Practica4sinDI.ViewModels"
+             x:Class="Practica4sinDI.MainPage">
+
+    <!-- BindingContext: la vista se enlaza a MainViewModel. En esta práctica SIN DI
+         lo instanciamos directamente desde XAML. Alternativamente se podría setear
+         en el code-behind. -->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <!-- VerticalStackLayout organiza controles verticalmente -->
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Práctica 4: HTTP + MVVM (sin DI)" Style="{StaticResource Headline}" />
+            <Label Text="GET, POST, PUT, DELETE con try/catch y cancelación" Style="{StaticResource SubHeadline}" />
+            <!-- Nota pedagógica: esta API no persiste. El VM aplica un overlay local para reflejar cambios. -->
+            <Label Text="Nota: jsonplaceholder simula cambios pero NO los persiste. Usamos una capa local para reflejar los cambios en esta sesión." FontSize="12" TextColor="Gray" />
+
+            <!-- ActivityIndicator: se muestra mientras IsBusy es true (operación en curso) -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <!-- Sección GET: consultar por Id y cargar todos -->
+            <Frame Padding="10" BorderColor="#DDD">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="GET" FontAttributes="Bold" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Buscar Id:" VerticalOptions="Center"/>
+                        <!-- Entry.Text se enlaza a SearchId. El teclado numérico facilita el ingreso -->
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding SearchId}" />
+                        <!-- Command invoca LoadPostByIdCommand del VM -->
+                        <Button Text="Cargar por Id" Command="{Binding LoadPostByIdCommand}" />
+                        <!-- Cargar todos usa LoadPostsCommand -->
+                        <Button Text="Cargar todos" Command="{Binding LoadPostsCommand}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Sección POST: crear un post -->
+            <Frame Padding="10" BorderColor="#DDD">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="POST (crear)" FontAttributes="Bold" />
+                    <!-- Campos de entrada para el nuevo recurso -->
+                    <Entry Placeholder="Título" Text="{Binding CreateTitle}" />
+                    <Entry Placeholder="Contenido" Text="{Binding CreateBody}" />
+                    <Button Text="Crear" Command="{Binding CreatePostCommand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Sección PUT: actualizar un post existente -->
+            <Frame Padding="10" BorderColor="#DDD">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="PUT (actualizar)" FontAttributes="Bold" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Id a actualizar:" VerticalOptions="Center"/>
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding UpdateId}" />
+                    </HorizontalStackLayout>
+                    <Entry Placeholder="Nuevo título" Text="{Binding UpdateTitle}" />
+                    <Entry Placeholder="Nuevo contenido" Text="{Binding UpdateBody}" />
+                    <Button Text="Actualizar" Command="{Binding UpdatePostCommand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Sección DELETE: eliminar un post -->
+            <Frame Padding="10" BorderColor="#DDD">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="DELETE" FontAttributes="Bold" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="Id a eliminar:" VerticalOptions="Center"/>
+                        <Entry WidthRequest="80" Keyboard="Numeric" Text="{Binding DeleteId}" />
+                        <Button Text="Eliminar" Command="{Binding DeletePostCommand}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Cancela cualquier operación HTTP en curso -->
+            <Button Text="Cancelar en curso" Command="{Binding CancelCommand}" />
+
+            <!-- Mensajes de feedback (errores, confirmaciones, cancelación) -->
+            <Label TextColor="Red" Text="{Binding ErrorMessage}" />
+            <Label TextColor="Green" Text="{Binding InfoMessage}" />
+
+            <!-- Lista de resultados usando CollectionView con DataTemplate para cada Post -->
+            <CollectionView ItemsSource="{Binding Posts}">
+                <CollectionView.Header>
+                    <Label Text="Resultados" FontAttributes="Bold" />
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,6" HasShadow="True">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Id, StringFormat='Id: {0}'}" />
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Label Text="{Binding Body}" LineBreakMode="WordWrap" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
