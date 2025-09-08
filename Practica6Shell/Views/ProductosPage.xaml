@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Practica6Shell.ViewModels"
+             xmlns:models="clr-namespace:Practica6Shell.Models"
+             x:Class="Practica6Shell.Views.ProductosPage"
+             Title="{Binding Title}"
+             x:DataType="vm:ProductosViewModel">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0" 
+               BackgroundColor="{StaticResource Primary}" 
+               CornerRadius="0" 
+               Padding="20">
+            <StackLayout>
+                <Label Text="Catalogo de Productos" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="White" 
+                       HorizontalOptions="Center" />
+                <Label Text="Toca un producto para ver detalles" 
+                       FontSize="14" 
+                       TextColor="LightGray" 
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <RefreshView Grid.Row="1" 
+                     IsRefreshing="{Binding IsBusy}" 
+                     Command="{Binding CargarProductosCommand}">
+            <CollectionView ItemsSource="{Binding Productos}" 
+                          SelectedItem="{Binding ProductoSeleccionado}"
+                          SelectionMode="Single"
+                          Margin="15">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Producto">
+                        <Grid Padding="0,10">
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="15" 
+                                   HasShadow="True" 
+                                   Padding="20">
+                                <Grid ColumnSpacing="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout Grid.Column="0" VerticalOptions="Center">
+                                        <Label Text="{Binding Nombre}" 
+                                               FontSize="18" 
+                                               FontAttributes="Bold" />
+                                        <Label Text="{Binding Descripcion}" 
+                                               FontSize="12" 
+                                               TextColor="Gray" />
+                                        <Label Text="{Binding Categoria}" 
+                                               FontSize="12" 
+                                               TextColor="Blue" />
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Precio, StringFormat='${0:F2}'}" 
+                                               FontSize="16" 
+                                               FontAttributes="Bold" 
+                                               TextColor="Green" />
+                                        <Label Text="{Binding EnStock, StringFormat='{0}'}" 
+                                               FontSize="12" 
+                                               TextColor="Orange" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="50" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center">
+                        <Label Text="No hay productos disponibles" 
+                               FontSize="18" 
+                               HorizontalOptions="Center" 
+                               TextColor="Gray" />
+                        <Button Text="Cargar Productos" 
+                                Command="{Binding CargarProductosCommand}"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White"
+                                Margin="0,20,0,0" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

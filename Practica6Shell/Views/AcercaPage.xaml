@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practica6Shell.Views.AcercaPage"
+             Title="Acerca de">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Practica 6" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="Navegacion en .NET MAUI" 
+                           FontSize="16" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                    <Label Text="Version 1.0.0" 
+                           FontSize="12" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="Caracteristicas Implementadas" 
+                           FontSize="18" 
+                           FontAttributes="Bold" />
+                    
+                    <Label Text="- Shell Navigation con Tabs y Flyout" FontSize="12" />
+                    <Label Text="- Navegacion Modal" FontSize="12" />
+                    <Label Text="- Parametros de navegacion" FontSize="12" />
+                    <Label Text="- MVVM con inyeccion de dependencias" FontSize="12" />
+                    <Label Text="- Manejo de estado y ciclo de vida" FontSize="12" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="Tecnologias Utilizadas" 
+                           FontSize="18" 
+                           FontAttributes="Bold" />
+                    
+                    <Grid ColumnSpacing="10" RowSpacing="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Row="0" Grid.Column="0" Text="- .NET 9" FontSize="12" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="- MAUI Framework" FontSize="12" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="- CommunityToolkit.Mvvm" FontSize="12" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="- Dependency Injection" FontSize="12" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="LightGreen" 
+                   CornerRadius="10" 
+                   Padding="15">
+                <StackLayout>
+                    <Label Text="Navegacion por Flyout" 
+                           FontSize="16" 
+                           FontAttributes="Bold" />
+                    <Label Text="Esta pagina se accede desde el menu lateral (flyout)" 
+                           FontSize="12" />
+                    <Label Text="El menu se abre deslizando desde la izquierda o tocando el icono del menu" 
+                           FontSize="12" />
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

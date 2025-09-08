@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practica6Shell.Views.EditarProductoPage"
+             Title="Editar Producto">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Editar Producto" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    
+                    <Label Text="Nombre" FontSize="16" FontAttributes="Bold" />
+                    <Entry x:Name="NombreEntry" Placeholder="Nombre del producto" />
+                    
+                    <Label Text="Descripcion" FontSize="16" FontAttributes="Bold" />
+                    <Editor x:Name="DescripcionEditor" 
+                            Placeholder="Descripcion del producto" 
+                            HeightRequest="100" />
+                    
+                    <Label Text="Precio" FontSize="16" FontAttributes="Bold" />
+                    <Entry x:Name="PrecioEntry" 
+                           Placeholder="0.00" 
+                           Keyboard="Numeric" />
+                    
+                    <Label Text="Categoria" FontSize="16" FontAttributes="Bold" />
+                    <Picker x:Name="CategoriaPicker">
+                        <Picker.Items>
+                            <x:String>Tecnologia</x:String>
+                            <x:String>Accesorios</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="En Stock" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" />
+                        <Switch x:Name="EnStockSwitch" />
+                    </StackLayout>
+                           
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Spacing="10">
+                <Button Text="Guardar"
+                        Clicked="OnGuardarClicked"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="25" />
+                        
+                <Button Text="Cancelar"
+                        Clicked="OnCancelarClicked"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        CornerRadius="25" />
+            </StackLayout>
+
+            <Frame BackgroundColor="LightYellow" 
+                   CornerRadius="10" 
+                   Padding="15">
+                <StackLayout>
+                    <Label Text="Navegacion con Parametros" 
+                           FontSize="16" 
+                           FontAttributes="Bold" />
+                    <Label Text="Esta pagina recibe el producto a editar como parametro" 
+                           FontSize="12" />
+                    <Label Text="Demuestra como pasar datos entre paginas" 
+                           FontSize="12" />
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

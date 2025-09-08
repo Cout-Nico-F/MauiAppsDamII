@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Practica6Shell.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Practica6Shell"
+    xmlns:views="clr-namespace:Practica6Shell.Views"
+    Title="Navegacion MAUI"
+    FlyoutBehavior="Flyout">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="150">
+            <StackLayout Padding="20" VerticalOptions="Center">
+                <Label Text="Practica 6"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                <Label Text="Navegacion MAUI"
+                       FontSize="16"
+                       TextColor="LightGray"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <TabBar Route="main">
+        <Tab Title="Inicio" Route="inicio">
+            <ShellContent 
+                Title="Dashboard"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="dashboard" />
+        </Tab>
+
+        <Tab Title="Productos" Route="productos">
+            <ShellContent 
+                Title="Catalogo"
+                ContentTemplate="{DataTemplate views:ProductosPage}"
+                Route="catalogo" />
+        </Tab>
+
+        <Tab Title="Categorias" Route="categorias">
+            <ShellContent 
+                Title="Categorias"
+                ContentTemplate="{DataTemplate views:CategoriasPage}"
+                Route="listacategorias" />
+        </Tab>
+    </TabBar>
+
+    <FlyoutItem Title="Configuracion" Route="configuracion">
+        <ShellContent ContentTemplate="{DataTemplate views:ConfiguracionPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Acerca de" Route="acerca">
+        <ShellContent ContentTemplate="{DataTemplate views:AcercaPage}" />
+    </FlyoutItem>
+
+    <MenuItem Text="Ayuda" Clicked="OnHelpClicked" />
+
+</Shell>

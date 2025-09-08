@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practica6Shell.Views.CategoriasPage"
+             Title="Categorias">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Categorias" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="Organiza tus productos" 
+                           FontSize="16" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    
+                    <Label Text="Tecnologia" 
+                           FontSize="18" 
+                           FontAttributes="Bold" />
+                    <Label Text="Dispositivos y equipos tecnologicos" 
+                           FontSize="14" 
+                           TextColor="Gray" />
+                    <Label Text="2 productos" 
+                           FontSize="12" 
+                           TextColor="Blue" />
+                    
+                    <BoxView HeightRequest="1" BackgroundColor="LightGray" />
+                    
+                    <Label Text="Accesorios" 
+                           FontSize="18" 
+                           FontAttributes="Bold" />
+                    <Label Text="Accesorios para dispositivos" 
+                           FontSize="14" 
+                           TextColor="Gray" />
+                    <Label Text="3 productos" 
+                           FontSize="12" 
+                           TextColor="Blue" />
+                           
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="LightYellow" 
+                   CornerRadius="10" 
+                   Padding="15">
+                <StackLayout>
+                    <Label Text="Navegacion por Tabs" 
+                           FontSize="16" 
+                           FontAttributes="Bold" />
+                    <Label Text="Esta pagina demuestra navegacion por pestanas (Tabs)" 
+                           FontSize="12" />
+                    <Label Text="Puedes cambiar entre secciones usando las pestanas inferiores" 
+                           FontSize="12" />
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
