@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Practica6Shell.ViewModels"
+             x:Class="Practica6Shell.MainPage"
+             Title="{Binding Title}"
+             x:DataType="vm:MainViewModel">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Navegacion MAUI" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="Practica 6: Ejemplos de navegacion" 
+                           FontSize="16" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="15" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Opciones de Navegacion" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,15" />
+
+                    <StackLayout>
+                        <Button Text="Ver Productos"
+                                Command="{Binding NavegarASeccionCommand}"
+                                CommandParameter="productos"
+                                BackgroundColor="LightBlue"
+                                TextColor="Black"
+                                Margin="0,5" />
+                        
+                        <Button Text="Ver Categorias"
+                                Command="{Binding NavegarASeccionCommand}" 
+                                CommandParameter="categorias"
+                                BackgroundColor="LightGreen"
+                                TextColor="Black"
+                                Margin="0,5" />
+                        
+                        <Button Text="Configuracion"
+                                Command="{Binding NavegarASeccionCommand}"
+                                CommandParameter="configuracion"
+                                BackgroundColor="LightCoral"
+                                TextColor="Black"
+                                Margin="0,5" />
+                        
+                        <Button Text="Acerca de"
+                                Command="{Binding NavegarASeccionCommand}"
+                                CommandParameter="acerca"
+                                BackgroundColor="LightYellow"
+                                TextColor="Black"
+                                Margin="0,5" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Mostrar Informacion"
+                    Command="{Binding MostrarInfoCommand}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    TextColor="White"
+                    CornerRadius="25" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}" />
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

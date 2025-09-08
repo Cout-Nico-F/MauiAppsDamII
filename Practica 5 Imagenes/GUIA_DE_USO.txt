@@ -1,0 +1,106 @@
+# PRÁCTICA 5: GALERÍA DE IMÁGENES - GUÍA DE USO
+
+## DESCRIPCIÓN GENERAL
+Esta aplicación es una galería de fotografías que demuestra el manejo avanzado de imágenes en .NET MAUI, incluyendo cache inteligente, optimización de rendimiento y buenas prácticas de desarrollo móvil.
+
+## FUNCIONALIDADES PRINCIPALES
+
+### 1. CARGA DE IMÁGENES
+- **Cargar todas las fotos**: Botón de actualización (?) que obtiene 20 fotografías desde la API Lorem Picsum
+- **Búsqueda por autor**: Campo de texto que permite buscar fotografías por nombre del fotógrafo
+- **Actualización pull-to-refresh**: Deslizar hacia abajo en la lista para refrescar el contenido
+
+### 2. GESTIÓN DE CACHE
+- **Limpiar Cache**: Botón rojo que elimina todas las imágenes almacenadas en memoria y disco
+- **Toggle Cache**: Botón verde/gris que habilita o deshabilita el sistema de cache
+- **Info Cache**: Botón azul que muestra información sobre el estado actual del cache
+
+### 3. COMPARACIÓN EDUCATIVA
+- **Imagen con cache (superior)**: Usa FFImageLoading.Maui con cache automático
+- **Imagen sin cache (inferior)**: Usa el control Image nativo de MAUI
+- **Diferencia visible**: En scroll rápido se nota mejor rendimiento con cache
+
+### 4. CONTROLES DE INTERFAZ
+- **ActivityIndicator**: Rueda de carga que aparece durante operaciones HTTP
+- **Botón Cancelar**: Permite interrumpir descargas en curso (visible solo durante carga)
+- **Mensajes de estado**: 
+  - Verde: Información de éxito (ej: "Se cargaron 20 fotografías")
+  - Rojo: Mensajes de error (ej: problemas de conexión)
+
+## CONTROLES UTILIZADOS
+
+### LAYOUTS
+- **Grid**: Organización principal en 5 filas (header, búsqueda, mensajes, lista, footer)
+- **StackLayout**: Para agrupar elementos horizontalmente y verticalmente
+- **Frame**: Para crear tarjetas con sombras y bordes redondeados
+
+### ENTRADA DE DATOS
+- **Entry**: Campo de texto para búsqueda con placeholder
+- **Button**: Botones para acciones (buscar, cargar, limpiar cache, etc.)
+
+### VISUALIZACIÓN
+- **Label**: Textos informativos con diferentes estilos y colores
+- **Image**: Control nativo para comparación
+- **CachedImage (FFImageLoading)**: Control avanzado con cache automático
+- **ActivityIndicator**: Indicador de carga animado
+- **BoxView**: Separadores visuales
+
+### COLECCIONES
+- **CollectionView**: Lista principal de fotografías con:
+  - Header personalizado
+  - ItemTemplate para cada foto
+  - EmptyView para cuando no hay datos
+- **RefreshView**: Wrapper que permite pull-to-refresh
+
+## CARACTERÍSTICAS TÉCNICAS EDUCATIVAS
+
+### 1. MVVM (Model-View-ViewModel)
+- **Separación clara**: UI en XAML, lógica en ViewModel, datos en Models
+- **Data Binding**: Propiedades enlazadas automáticamente entre Vista y ViewModel
+- **Commands**: Acciones ejecutadas via comandos en lugar de eventos
+
+### 2. DEPENDENCY INJECTION
+- **IHttpClientFactory**: Pool de conexiones HTTP eficiente
+- **Service Interfaces**: IPhotoService para facilitar testing
+- **ViewModel Injection**: Constructor recibe dependencias automáticamente
+
+### 3. MANEJO HTTP AVANZADO
+- **Async/Await**: Operaciones asíncronas no bloqueantes
+- **CancellationToken**: Permite cancelar operaciones HTTP
+- **Try/Catch específicos**: Manejo detallado de errores de red, JSON y cancelación
+- **Retry automático**: FFImageLoading reintenta automáticamente en errores
+
+### 4. OPTIMIZACIONES DE RENDIMIENTO
+- **Cache en memoria**: Para scroll fluido sin re-descargas
+- **Cache en disco**: Persistencia entre sesiones de la app
+- **Thumbnails**: Imágenes pequeñas (300x200) para listas, grandes (800x600) para detalle
+- **DownsampleToViewSize**: Redimensiona automáticamente al tamaño del contenedor
+- **ObservableCollection**: Notifica cambios automáticamente a la UI
+
+### 5. UX/UI PATTERNS
+- **Loading states**: ActivityIndicator durante operaciones
+- **Error handling**: Mensajes claros al usuario
+- **Empty states**: Placeholder cuando no hay datos
+- **Pull-to-refresh**: Patrón estándar mobile para actualizar
+- **Responsive design**: Se adapta a diferentes tamaños de pantalla
+
+## FLUJO DE USO TÍPICO
+
+1. **Inicio**: La app carga automáticamente 20 fotografías al abrirse
+2. **Explorar**: Usuario puede hacer scroll para ver todas las fotos cargadas
+3. **Buscar**: Escribir nombre de fotógrafo y tocar ?? para filtrar
+4. **Actualizar**: Deslizar hacia abajo o tocar ? para refrescar
+5. **Gestionar cache**: Usar botones del footer para controlar memoria
+6. **Comparar**: Observar diferencias entre las dos imágenes de cada tarjeta
+
+## CONCEPTOS DEMOSTRADOS
+
+- **API REST consumption**: Llamadas GET a Lorem Picsum API
+- **JSON deserialization**: Conversión automática de JSON a objetos C#
+- **Image optimization**: Diferentes tamaños según contexto de uso
+- **Memory management**: Control inteligente de cache y recursos
+- **Cross-platform UI**: Misma interfaz en Android, iOS, Windows y macOS
+- **Modern .NET patterns**: Records, nullable reference types, using declarations
+- **Responsive binding**: Compiled bindings con x:DataType para mejor rendimiento
+
+Esta aplicación sirve como referencia completa para desarrolladores que necesiten implementar galerías de imágenes eficientes en aplicaciones móviles empresariales.

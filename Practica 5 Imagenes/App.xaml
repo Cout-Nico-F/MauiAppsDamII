@@ -1,0 +1,22 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Practica_5_Imagenes"
+             xmlns:converters="clr-namespace:Practica_5_Imagenes.Converters"
+             x:Class="Practica_5_Imagenes.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Value Converters globales para toda la aplicación -->
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" 
+                                           TrueColor="Green" 
+                                           FalseColor="Gray" />
+            <converters:FileSizeConverter x:Key="FileSizeConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
