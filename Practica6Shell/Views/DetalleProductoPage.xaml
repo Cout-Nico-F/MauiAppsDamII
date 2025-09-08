@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Practica6Shell.ViewModels"
+             x:Class="Practica6Shell.Views.DetalleProductoPage"
+             Title="{Binding Title}"
+             x:DataType="vm:DetalleProductoViewModel">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Producto.Nombre}" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding Producto.Categoria}" 
+                           FontSize="16" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout Spacing="15">
+                    <Label Text="Descripcion" 
+                           FontSize="18" 
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding Producto.Descripcion}" 
+                           FontSize="14" />
+                    
+                    <BoxView HeightRequest="1" 
+                             BackgroundColor="LightGray" 
+                             Margin="0,10" />
+                    
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackLayout Grid.Column="0">
+                            <Label Text="Precio" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Producto.Precio, StringFormat='${0:F2}'}" 
+                                   FontSize="20" 
+                                   TextColor="Green" />
+                        </StackLayout>
+                        
+                        <StackLayout Grid.Column="1">
+                            <Label Text="Estado" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Producto.EnStock, StringFormat='{0}'}" 
+                                   FontSize="16" 
+                                   TextColor="Orange" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Spacing="10">
+                <Button Text="Editar Producto"
+                        Command="{Binding EditarProductoCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="25" />
+                        
+                <Button Text="Compartir"
+                        Command="{Binding CompartirProductoCommand}"
+                        BackgroundColor="{StaticResource Secondary}"
+                        TextColor="White"
+                        CornerRadius="25" />
+                        
+                <Button Text="Volver"
+                        Command="{Binding GoBackCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        CornerRadius="25" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

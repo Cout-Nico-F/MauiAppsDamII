@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Práctica 5: Galería de Imágenes con .NET MAUI
+    
+    Esta página demuestra las mejores prácticas para manejo de imágenes:
+    - Uso de FFImageLoading.Maui para cache avanzado
+    - Transformaciones visuales (redimensionado, efectos)
+    - Optimización de rendimiento en listas de imágenes
+    - Comparación entre Image nativo y CachedImage
+    - Gestión de memoria y cache
+    - Manejo de errores en carga de imágenes
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Maui;assembly=FFImageLoading.Maui"
+             xmlns:vm="clr-namespace:Practica_5_Imagenes.ViewModels"
+             xmlns:models="clr-namespace:Practica_5_Imagenes.Models"
+             x:Class="Practica_5_Imagenes.MainPage"
+             Title="Galería de Fotos"
+             x:DataType="vm:MainViewModel">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />     <!-- Controles superiores -->
+            <RowDefinition Height="Auto" />     <!-- Barra de búsqueda -->
+            <RowDefinition Height="Auto" />     <!-- Información/Errores -->
+            <RowDefinition Height="*" />        <!-- Lista de fotos -->
+            <RowDefinition Height="Auto" />     <!-- Controles de cache -->
+        </Grid.RowDefinitions>
+
+        <!-- Controles superiores -->
+        <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="15,10" Spacing="10">
+            <Label Text="Práctica 5: Imágenes con Cache" 
+                   Style="{StaticResource Headline}" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="StartAndExpand" />
+            
+            <!-- ActivityIndicator para mostrar estado de carga -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"
+                             VerticalOptions="Center" />
+            
+            <!-- Botón cancelar (visible solo cuando hay operación en curso) -->
+            <Button Text="Cancelar" 
+                    Command="{Binding CancelCommand}"
+                    IsVisible="{Binding IsBusy}"
+                    BackgroundColor="Orange"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+        </StackLayout>
+
+        <!-- Barra de búsqueda -->
+        <Frame Grid.Row="1" Margin="15,5" Padding="10" BackgroundColor="LightGray" CornerRadius="25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Entry Grid.Column="0"
+                       Text="{Binding SearchTerm}"
+                       Placeholder="Buscar fotografías por autor..."
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center" />
+                
+                <Button Grid.Column="1"
+                        Text="🔍"
+                        Command="{Binding SearchPhotosCommand}"
+                        BackgroundColor="Transparent"
+                        FontSize="18" />
+                
+                <Button Grid.Column="2"
+                        Text="↻"
+                        Command="{Binding LoadPhotosCommand}"
+                        BackgroundColor="Transparent"
+                        FontSize="18" />
+            </Grid>
+        </Frame>
+
+        <!-- Mensajes de información y error -->
+        <StackLayout Grid.Row="2" Padding="15,5">
+            <!-- Mensaje de información (verde) -->
+            <Label Text="{Binding InfoMessage}"
+                   TextColor="Green"
+                   FontSize="14"
+                   IsVisible="{Binding InfoMessage, Converter={StaticResource StringToBoolConverter}}" />
+            
+            <!-- Mensaje de error (rojo) -->
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   FontSize="14"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" />
+        </StackLayout>
+
+        <!-- Lista principal de fotografías -->
+        <RefreshView Grid.Row="3" 
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            
+            <CollectionView ItemsSource="{Binding Photos}"
+                           BackgroundColor="White">
+                
+                <!-- Header de la colección -->
+                <CollectionView.Header>
+                    <StackLayout Padding="15,10">
+                        <Label Text="Galería de Fotografías" 
+                               FontAttributes="Bold" 
+                               FontSize="18"
+                               HorizontalOptions="Center" />
+                        <Label Text="Desliza hacia abajo para actualizar" 
+                               FontSize="12" 
+                               TextColor="Gray"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.Header>
+                
+                <!-- Template para cada fotografía -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Photo">
+                        <Grid Padding="15,10">
+                            <Frame BackgroundColor="White" 
+                                   CornerRadius="15"
+                                   HasShadow="True"
+                                   Padding="0">
+                                
+                                <StackLayout>
+                                    <!-- 
+                                    FFImageLoading.Maui CachedImage vs Image nativo:
+                                    
+                                    CachedImage ventajas:
+                                    - Cache automático en memoria y disco
+                                    - Transformaciones (resize, blur, etc.)
+                                    - Placeholder y error images
+                                    - Mejor rendimiento en listas grandes
+                                    - Retry automático en errores de red
+                                    - Animaciones de fade-in
+                                    
+                                    Image nativo:
+                                    - Más ligero si no necesitas cache
+                                    - Integrado en el framework
+                                    - Mejor para imágenes locales/recursos
+                                    -->
+                                    <ffimageloading:CachedImage 
+                                        Source="{Binding ThumbnailUrl}"
+                                        Aspect="AspectFill"
+                                        HeightRequest="200"
+                                        CacheDuration="30"
+                                        RetryCount="3"
+                                        RetryDelay="500"
+                                        FadeAnimationEnabled="True"
+                                        FadeAnimationDuration="300"
+                                        DownsampleToViewSize="True"
+                                        BackgroundColor="LightGray" />
+                                    
+                                    <!-- Información de la fotografía -->
+                                    <StackLayout Padding="15">
+                                        <Label Text="{Binding Title}" 
+                                               FontAttributes="Bold" 
+                                               FontSize="16" />
+                                        
+                                        <Label Text="{Binding Author, StringFormat='Por: {0}'}" 
+                                               FontSize="14" 
+                                               TextColor="Gray" />
+                                        
+                                        <StackLayout Orientation="Horizontal" Spacing="15">
+                                            <Label Text="{Binding Width, StringFormat='Ancho: {0}px'}" 
+                                                   FontSize="12" 
+                                                   TextColor="DarkGray" />
+                                            <Label Text="{Binding Height, StringFormat='Alto: {0}px'}" 
+                                                   FontSize="12" 
+                                                   TextColor="DarkGray" />
+                                            <Label Text="{Binding FileSize, Converter={StaticResource FileSizeConverter}}" 
+                                                   FontSize="12" 
+                                                   TextColor="DarkGray" />
+                                        </StackLayout>
+                                        
+                                        <!-- Separador visual -->
+                                        <BoxView HeightRequest="1" BackgroundColor="LightGray" Margin="0,10" />
+                                        
+                                        <!-- Comparación: Image nativo para contraste -->
+                                        <Label Text="Comparación - Image nativo (sin cache):" 
+                                               FontSize="12" 
+                                               FontAttributes="Italic"
+                                               Margin="0,5,0,5" />
+                                        
+                                        <Image Source="{Binding ThumbnailUrl}"
+                                               Aspect="AspectFill"
+                                               HeightRequest="100"
+                                               BackgroundColor="LightGray" />
+                                        
+                                        <Label Text="Nota: La imagen superior usa cache (FFImageLoading), la inferior es Image nativo. En scroll rápido se notará la diferencia."
+                                               FontSize="10"
+                                               TextColor="Gray"
+                                               Margin="0,5" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                <!-- Mensaje cuando no hay elementos -->
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="50" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="📷" 
+                               FontSize="48" 
+                               HorizontalOptions="Center" />
+                        <Label Text="No se encontraron fotografías" 
+                               FontSize="18" 
+                               HorizontalOptions="Center" 
+                               TextColor="Gray" />
+                        <Label Text="Toca el botón de actualizar para cargar imágenes" 
+                               FontSize="14" 
+                               HorizontalOptions="Center" 
+                               TextColor="LightGray" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Controles de cache (pie de página) -->
+        <Frame Grid.Row="4" BackgroundColor="LightBlue" Padding="15,10" Margin="0">
+            <StackLayout>
+                <Label Text="Gestión de Cache de Imágenes" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" />
+                
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="15">
+                    <Button Text="Limpiar Cache" 
+                            Command="{Binding ClearCacheCommand}"
+                            BackgroundColor="Red"
+                            TextColor="White"
+                            FontSize="12" />
+                    
+                    <Button Text="{Binding IsCacheEnabled, StringFormat='{0:Cache ON;Cache OFF}'}" 
+                            Command="{Binding ToggleCacheCommand}"
+                            BackgroundColor="{Binding IsCacheEnabled, Converter={StaticResource BoolToColorConverter}}"
+                            TextColor="White"
+                            FontSize="12" />
+                    
+                    <Button Text="Info Cache" 
+                            Command="{Binding GetCacheInfoCommand}"
+                            BackgroundColor="Blue"
+                            TextColor="White"
+                            FontSize="12" />
+                </StackLayout>
+                
+                <Label Text="{Binding CacheInfo}" 
+                       FontSize="11" 
+                       TextColor="DarkBlue"
+                       HorizontalOptions="Center"
+                       MaxLines="3" />
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>
