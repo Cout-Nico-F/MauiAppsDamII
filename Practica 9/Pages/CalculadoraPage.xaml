@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practica9.Pages.CalculadoraPage"
+             Title="Calculadora"
+             BackgroundColor="#f0f0f0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <Label Text="Calculadora"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#333"
+                   HorizontalTextAlignment="Center"/>
+            
+            <Frame CornerRadius="10" 
+                   BorderColor="#ddd" 
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Numero A:" FontAttributes="Bold" FontSize="14"/>
+                    <Entry x:Name="EntryA"
+                           Text="{Binding NumeroA}"
+                           Placeholder="Ingresa numero"
+                           Keyboard="Numeric"
+                           FontSize="16"/>
+
+                    <Label Text="Numero B:" FontAttributes="Bold" FontSize="14" Margin="0,10,0,0"/>
+                    <Entry x:Name="EntryB"
+                           Text="{Binding NumeroB}"
+                           Placeholder="Ingresa numero"
+                           Keyboard="Numeric"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Grid ColumnDefinitions="1*,1*" 
+                  RowDefinitions="Auto,Auto" 
+                  ColumnSpacing="10"
+                  RowSpacing="10">
+                
+                <Button Text="Sumar"
+                        Command="{Binding SumarCommand}"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Grid.Row="0" Grid.Column="0"
+                        Padding="15,20"/>
+
+                <Button Text="Restar"
+                        Command="{Binding RestarCommand}"
+                        BackgroundColor="#FF9800"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Grid.Row="0" Grid.Column="1"
+                        Padding="15,20"/>
+
+                <Button Text="Multiplicar"
+                        Command="{Binding MultiplicarCommand}"
+                        BackgroundColor="#2196F3"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Grid.Row="1" Grid.Column="0"
+                        Padding="15,20"/>
+
+                <Button Text="Dividir"
+                        Command="{Binding DividirCommand}"
+                        BackgroundColor="#9C27B0"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        Grid.Row="1" Grid.Column="1"
+                        Padding="15,20"/>
+            </Grid>
+
+            <Frame CornerRadius="10" 
+                   BorderColor="#4CAF50" 
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Resultado:"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           TextColor="#333"/>
+                    <Label Text="{Binding Resultado}"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           TextColor="#4CAF50"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="{Binding MensajeError}"
+                   FontSize="14"
+                   TextColor="#F44336"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,5"/>
+
+            <Button Text="Limpiar"
+                    Command="{Binding LimpiarCommand}"
+                    BackgroundColor="#757575"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Padding="15,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

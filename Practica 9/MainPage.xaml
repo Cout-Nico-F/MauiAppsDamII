@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Practica_9.MainPage"
+             BackgroundColor="#f0f0f0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <VerticalStackLayout Padding="15" 
+                                BackgroundColor="#333"
+                                Spacing="8">
+                <Label Text="Practica 9: Testing"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="White"/>
+                <Label Text="Testing Unitario Educativo"
+                       FontSize="12"
+                       TextColor="#ccc"/>
+            </VerticalStackLayout>
+
+            <Frame CornerRadius="10"
+                   BorderColor="#2196F3"
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Objetivo:"
+                           FontAttributes="Bold"
+                           FontSize="14"/>
+                    <Label Text="Demostrar testing unitario con MAUI"
+                           FontSize="12"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Resumen de Tests:"
+                   FontAttributes="Bold"
+                   FontSize="16"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                
+                <Frame Grid.Row="0" Grid.Column="0"
+                       BackgroundColor="#C8E6C9"
+                       BorderColor="#4CAF50"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="76"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#2E7D32"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Tests"
+                               FontSize="11"
+                               TextColor="#1B5E20"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="0" Grid.Column="1"
+                       BackgroundColor="#BBDEFB"
+                       BorderColor="#2196F3"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="100%"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#1565C0"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Exitosos"
+                               FontSize="11"
+                               TextColor="#0D47A1"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="0"
+                       BackgroundColor="#FFE0B2"
+                       BorderColor="#FF9800"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="11"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#E65100"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Calculadora"
+                               FontSize="11"
+                               TextColor="#BF360C"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="1"
+                       BackgroundColor="#F8BBD0"
+                       BorderColor="#E91E63"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="33"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#AD1457"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Productos"
+                               FontSize="11"
+                               TextColor="#880E4F"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="2" Grid.Column="0"
+                       BackgroundColor="#D1C4E9"
+                       BorderColor="#673AB7"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="23"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#4527A0"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Usuario"
+                               FontSize="11"
+                               TextColor="#311B92"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Grid.Row="2" Grid.Column="1"
+                       BackgroundColor="#B2DFDB"
+                       BorderColor="#009688"
+                       CornerRadius="8"
+                       Padding="12"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                        <Label Text="9"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="#00695C"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Integracion"
+                               FontSize="11"
+                               TextColor="#004D40"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </Grid>
+
+            <Label Text="Caracteristicas:"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Margin="0,10,0,0"/>
+
+            <Frame CornerRadius="8"
+                   BackgroundColor="#F3E5F5"
+                   Padding="12"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Patron AAA"
+                               FontSize="12"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="xUnit + Moq"
+                               FontSize="12"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Tests parametrizados"
+                               FontSize="12"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Navega:"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Margin="0,15,0,0"/>
+
+            <Button Text="Calculadora"
+                    Clicked="OnCalculadoraClicked"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Padding="15,15"/>
+
+            <Button Text="Tienda"
+                    Clicked="OnTiendaClicked"
+                    BackgroundColor="#FF9800"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Padding="15,15"/>
+
+            <Frame CornerRadius="8"
+                   BackgroundColor="#E8F5E9"
+                   Padding="12"
+                   Margin="0,10,0,0"
+                   HasShadow="True">
+                <Label Text="Todos los tests compilados y listos"
+                       FontSize="11"
+                       TextColor="#2E7D32"
+                       HorizontalTextAlignment="Center"/>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

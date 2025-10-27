@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:QuizApp.ViewModels"
+             x:Class="QuizApp.Views.QuizPage"
+             Title="{Binding Title}"
+             x:DataType="vm:QuizViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+        
+        <Frame Grid.Row="0" 
+               BackgroundColor="{StaticResource Primary}" 
+               CornerRadius="15" 
+               Padding="20" 
+               Margin="0,0,0,20">
+            <StackLayout>
+                <Label Text="{Binding ProgresoTexto}" 
+                       FontSize="16" 
+                       FontAttributes="Bold" 
+                       TextColor="White" 
+                       HorizontalOptions="Center" />
+                
+                <ProgressBar Progress="{Binding ProgresoValor}" 
+                           ProgressColor="White" 
+                           BackgroundColor="LightGray" 
+                           Margin="0,10,0,0" />
+                
+                <Label Text="{Binding ProgresoPorcentaje}" 
+                       FontSize="14" 
+                       TextColor="LightGray" 
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="20" IsVisible="{Binding PreguntaActual, Converter={StaticResource IsNotNullConverter}}">
+                
+                <Frame BackgroundColor="White" 
+                       CornerRadius="15" 
+                       Padding="20" 
+                       HasShadow="True">
+                    <Label Text="{Binding PreguntaActual.Texto}" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Center" />
+                </Frame>
+
+                <StackLayout Spacing="10">
+                    
+                    <Frame x:Name="Opcion0Frame" 
+                           BackgroundColor="LightGray" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SeleccionarRespuestaCommand}" CommandParameter="0" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Opcion0}" 
+                               FontSize="16" 
+                               HorizontalOptions="Center" 
+                               HorizontalTextAlignment="Center" />
+                    </Frame>
+                    
+                    <Frame x:Name="Opcion1Frame" 
+                           BackgroundColor="LightGray" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SeleccionarRespuestaCommand}" CommandParameter="1" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Opcion1}" 
+                               FontSize="16" 
+                               HorizontalOptions="Center" 
+                               HorizontalTextAlignment="Center" />
+                    </Frame>
+                    
+                    <Frame x:Name="Opcion2Frame" 
+                           BackgroundColor="LightGray" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SeleccionarRespuestaCommand}" CommandParameter="2" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Opcion2}" 
+                               FontSize="16" 
+                               HorizontalOptions="Center" 
+                               HorizontalTextAlignment="Center" />
+                    </Frame>
+                    
+                    <Frame x:Name="Opcion3Frame" 
+                           BackgroundColor="LightGray" 
+                           CornerRadius="12" 
+                           Padding="15" 
+                           HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SeleccionarRespuestaCommand}" CommandParameter="3" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Opcion3}" 
+                               FontSize="16" 
+                               HorizontalOptions="Center" 
+                               HorizontalTextAlignment="Center" />
+                    </Frame>
+                    
+                </StackLayout>
+
+                <Frame BackgroundColor="LightYellow" 
+                       CornerRadius="10" 
+                       Padding="15" 
+                       IsVisible="{Binding MostrarExplicacion}">
+                    <StackLayout>
+                        <Label Text="Explicacion:" 
+                               FontSize="14" 
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding PreguntaActual.Explicacion}" 
+                               FontSize="14" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+        <Label Grid.Row="1"
+               Text="Cargando preguntas..."
+               FontSize="18"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               IsVisible="{Binding PreguntaActual, Converter={StaticResource IsNullConverter}}" />
+
+        <StackLayout Grid.Row="2" 
+                     Spacing="10" 
+                     Margin="0,20,0,0">
+            
+            <Button Text="{Binding TextoBotonSiguiente}"
+                    Command="{Binding SiguientePreguntaCommand}"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    FontSize="16"
+                    FontAttributes="Bold" />
+            
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Grid.Column="0"
+                        Text="Reiniciar"
+                        Command="{Binding ReiniciarQuizCommand}"
+                        BackgroundColor="Orange"
+                        TextColor="White"
+                        CornerRadius="25"
+                        FontSize="14" />
+                
+                <Button Grid.Column="1"
+                        Text="Menu"
+                        Command="{Binding VolverAlMenuCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        CornerRadius="25"
+                        FontSize="14" />
+            </Grid>
+        </StackLayout>
+
+        <ActivityIndicator Grid.Row="1"
+                         IsRunning="{Binding IsBusy}"
+                         IsVisible="{Binding IsBusy}"
+                         Color="{StaticResource Primary}"
+                         VerticalOptions="Center" />
+
+    </Grid>
+
+</ContentPage>

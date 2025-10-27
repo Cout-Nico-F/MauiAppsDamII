@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Información del proyecto de tests -->
+		<DisplayName>Practica 9 - Tests Unitarios</DisplayName>
+		<Description>Proyecto de pruebas unitarias con xUnit, Moq y patrones de testing educativos</Description>
+		<Authors>Docente MAUI</Authors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Framework de testing -->
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.2" />
+		
+		<!-- xUnit: framework de testing -->
+		<PackageReference Include="xunit" Version="2.6.6" />
+		
+		<!-- Runner para xUnit (ejecuta los tests) -->
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		
+		<!-- Moq: framework para crear mocks dinámicos -->
+		<PackageReference Include="Moq" Version="4.20.70" />
+		
+		<!-- FluentAssertions: aserciones más legibles (opcional pero recomendado) -->
+		<PackageReference Include="FluentAssertions" Version="6.12.0" />
+		
+		<!-- Coverage: para medir cobertura de tests (opcional) -->
+		<PackageReference Include="coverlet.collector" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Incluir archivos de modelo y servicios directamente en lugar de referenciar el proyecto MAUI -->
+		<!-- Esto evita los problemas de TargetFramework incompatibles -->
+		<Compile Include="..\Practica 9\Models\*.cs" Link="Models\%(Filename)%(Extension)" />
+		<Compile Include="..\Practica 9\Services\*.cs" Link="Services\%(Filename)%(Extension)" />
+	</ItemGroup>
+
+</Project>

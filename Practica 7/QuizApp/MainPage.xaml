@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:QuizApp.ViewModels"
+             xmlns:models="clr-namespace:QuizApp.Models"
+             x:Class="QuizApp.MainPage"
+             Title="{Binding Title}"
+             x:DataType="vm:MainViewModel">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <Frame BackgroundColor="{StaticResource Primary}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Quiz MAUI" 
+                           FontSize="28" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="Pon a prueba tus conocimientos" 
+                           FontSize="16" 
+                           TextColor="LightGray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                <Frame Grid.Column="0" BackgroundColor="LightBlue" CornerRadius="10" Padding="15">
+                    <StackLayout>
+                        <Label Text="{Binding TotalPreguntasDisponibles}" 
+                               FontSize="24" 
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center" />
+                        <Label Text="Preguntas" 
+                               FontSize="12" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Frame>
+                
+                <Frame Grid.Column="1" BackgroundColor="LightGreen" CornerRadius="10" Padding="15">
+                    <StackLayout>
+                        <Label Text="{Binding QuizzesCompletados}" 
+                               FontSize="24" 
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center" />
+                        <Label Text="Completados" 
+                               FontSize="12" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
+            <Frame BackgroundColor="Orange" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IniciarQuizAleatorioCommand}" />
+                </Frame.GestureRecognizers>
+                
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="?" FontSize="24" VerticalOptions="Center" />
+                    <StackLayout Margin="15,0,0,0" VerticalOptions="Center">
+                        <Label Text="Quiz Aleatorio" 
+                               FontSize="18" 
+                               FontAttributes="Bold" 
+                               TextColor="White" />
+                        <Label Text="10 preguntas de todas las categorias" 
+                               FontSize="14" 
+                               TextColor="LightYellow" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Label Text="Categorias" 
+                   FontSize="20" 
+                   FontAttributes="Bold" 
+                   Margin="0,10,0,0" />
+
+            <StackLayout Spacing="10" BindableLayout.ItemsSource="{Binding Categorias}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:CategoriaQuiz">
+                        <Frame BackgroundColor="{Binding Color}" 
+                               CornerRadius="12" 
+                               Padding="15" 
+                               HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=IniciarQuizPorCategoriaCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Icono}" 
+                                       FontSize="24" 
+                                       VerticalOptions="Center" />
+                                
+                                <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Nombre}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold" 
+                                           TextColor="White" />
+                                    <Label Text="{Binding Descripcion}" 
+                                           FontSize="12" 
+                                           TextColor="LightGray" />
+                                </StackLayout>
+                                
+                                <Label Grid.Column="2" 
+                                       Text="{Binding TotalPreguntas}" 
+                                       FontSize="10" 
+                                       TextColor="LightGray" 
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <StackLayout Spacing="10" Margin="0,20,0,0">
+                <Button Text="Ver Historial"
+                        Command="{Binding VerHistorialCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        CornerRadius="25" />
+                        
+                <Button Text="Estadisticas"
+                        Command="{Binding VerEstadisticasCommand}"
+                        BackgroundColor="DarkSlateBlue"
+                        TextColor="White"
+                        CornerRadius="25" />
+                        
+                <Button Text="Ayuda"
+                        Command="{Binding MostrarAyudaCommand}"
+                        BackgroundColor="DarkGreen"
+                        TextColor="White"
+                        CornerRadius="25" />
+            </StackLayout>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"
+                             Margin="0,20" />
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

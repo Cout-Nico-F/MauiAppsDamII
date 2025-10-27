@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:QuizApp.ViewModels"
+             x:Class="QuizApp.Views.ResultadoPage"
+             Title="{Binding Title}"
+             x:DataType="vm:ResultadoViewModel">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            
+            <!-- Header de felicitacion -->
+            <Frame BackgroundColor="{Binding Resultado.ColorCalificacion}" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding MensajeFelicitacion}" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding Resultado.Calificacion}" 
+                           FontSize="18" 
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,0" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Puntuacion principal -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="30" 
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="{Binding Resultado.Porcentaje, StringFormat='{0:F0}%'}" 
+                           FontSize="48" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           TextColor="{Binding Resultado.ColorCalificacion}" />
+                    <Label Text="{Binding Resultado.RespuestasCorrectas, StringFormat='{0}'}" 
+                           FontSize="24" 
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding Resultado.TotalPreguntas, StringFormat='de {0} preguntas'}" 
+                           FontSize="16" 
+                           TextColor="Gray" 
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Detalles del quiz -->
+            <Frame BackgroundColor="White" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   HasShadow="True">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto" 
+                      ColumnDefinitions="*,*" 
+                      RowSpacing="15" 
+                      ColumnSpacing="20">
+                    
+                    <Label Grid.Row="0" Grid.Column="0" 
+                           Text="Categoria:" 
+                           FontAttributes="Bold" />
+                    <Label Grid.Row="0" Grid.Column="1" 
+                           Text="{Binding Resultado.Categoria}" />
+                    
+                    <Label Grid.Row="1" Grid.Column="0" 
+                           Text="Tiempo total:" 
+                           FontAttributes="Bold" />
+                    <Label Grid.Row="1" Grid.Column="1" 
+                           Text="{Binding TiempoFormateado}" />
+                    
+                    <Label Grid.Row="2" Grid.Column="0" 
+                           Text="Respuestas correctas:" 
+                           FontAttributes="Bold" />
+                    <Label Grid.Row="2" Grid.Column="1" 
+                           Text="{Binding Resultado.RespuestasCorrectas}" 
+                           TextColor="Green" />
+                    
+                    <Label Grid.Row="3" Grid.Column="0" 
+                           Text="Respuestas incorrectas:" 
+                           FontAttributes="Bold" />
+                    <Label Grid.Row="3" Grid.Column="1" 
+                           Text="{Binding Resultado.RespuestasIncorrectas}" 
+                           TextColor="Red" />
+                </Grid>
+            </Frame>
+
+            <!-- Mensaje motivacional -->
+            <Frame BackgroundColor="LightBlue" 
+                   CornerRadius="10" 
+                   Padding="15">
+                <Label Text="Sigue asi y mejora cada dia!" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+            </Frame>
+
+            <!-- Botones de accion -->
+            <StackLayout Spacing="10">
+                <Button Text="Repetir Quiz"
+                        Command="{Binding RepetirQuizCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        CornerRadius="25"
+                        FontSize="16"
+                        FontAttributes="Bold" />
+                
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Button Grid.Column="0"
+                            Text="Ver Historial"
+                            Command="{Binding VerHistorialCommand}"
+                            BackgroundColor="DarkSlateBlue"
+                            TextColor="White"
+                            CornerRadius="25" />
+                    
+                    <Button Grid.Column="1"
+                            Text="Compartir"
+                            Command="{Binding CompartirResultadoCommand}"
+                            BackgroundColor="Green"
+                            TextColor="White"
+                            CornerRadius="25" />
+                </Grid>
+                
+                <Button Text="Volver al Menu"
+                        Command="{Binding VolverAlMenuCommand}"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        CornerRadius="25" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
